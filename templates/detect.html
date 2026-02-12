@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Crime Lab | Dental Detective</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body class="hq-body">
+
+    <canvas id="matrix-bg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+    <audio id="detectiveAudio"></audio>
+
+    <nav class="navbar navbar-dark" style="background: transparent; position: absolute; top:0; width:100%; z-index: 10001;">
+        <div class="container pt-3">
+            <div>
+                <a href="/" class="btn btn-outline-light btn-sm me-2" style="font-family: 'Special Elite'; border: 1px solid #444; background: rgba(0,0,0,0.6); pointer-events: auto;">
+                    <i class="bi bi-arrow-left"></i> RETURN TO HQ
+                </a>
+                
+                <div class="btn-group me-2" role="group">
+                    <button id="musicToggleBtn" class="btn btn-outline-secondary btn-sm" style="font-family: 'Special Elite'; border: 1px solid #444; pointer-events: auto;">
+                        <i class="bi bi-volume-mute-fill"></i> OFF
+                    </button>
+                    <button id="skipBtn" class="btn btn-outline-secondary btn-sm" style="font-family: 'Special Elite'; border: 1px solid #444; border-left: none; pointer-events: auto;">
+                        <i class="bi bi-skip-end-fill"></i> SKIP
+                    </button>
+                </div>
+
+                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#archiveModal" style="font-family: 'Special Elite'; border: 1px solid #444; background: rgba(0,0,0,0.6); pointer-events: auto;">
+                    <i class="bi bi-archive-fill"></i> DEPT. ARCHIVES
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5 main-content" style="margin-top: 40px; position: relative; z-index: 10;">
+        <div class="text-center">
+            <h1 class="detective-header">Evidence Analysis</h1>
+        </div>
+
+        <div class="case-file" id="case-file-panel">
+            <div class="stamp-top">Top Secret</div>
+            
+            <div class="row">
+                <div class="col-12 text-center mb-3">
+                    <h3><span class="case-label">CASE ID:</span> #<span id="case-id">8842-X</span></h3>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <input type="file" id="evidenceInput" accept="image/*" hidden>
+                    <div class="evidence-drop-zone" id="dropZone">
+                        <div id="view-toggles" class="btn-group mb-2" role="group" style="display:none; position:absolute; top:10px; right:10px; z-index:10;">
+                            <button type="button" class="btn btn-sm btn-dark active" id="btn-show-original">Original</button>
+                            <button type="button" class="btn btn-sm btn-danger" id="btn-show-heatmap">Spectral Scan</button>
+                        </div>
+                        <div id="uploadPrompt">
+                            <i class="bi bi-camera-fill" style="font-size: 3rem;"></i>
+                            <h4>Drag Evidence Here</h4>
+                        </div>
+                        <img id="imagePreview" class="evidence-preview mx-auto" alt="Original">
+                        <img id="heatmapPreview" class="evidence-preview mx-auto" style="display:none;" alt="Heatmap">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3" id="action-area">
+                <div class="col-12 text-center">
+                    <button class="btn btn-solve" id="analyzeBtn" disabled>SOLVE CASE</button>
+                </div>
+            </div>
+
+            <div id="loadingArea" class="text-center my-4" style="display: none;">
+                <div class="spinner-border text-danger" role="status"></div>
+                <p class="mt-2 typing-loader fw-bold"></p>
+            </div>
+
+            <div id="results-area" style="display:none;">
+                <div class="row g-4">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="comic-speech-bubble">
+                            <span id="detective-remark">"..."</span>
+                        </div>
+                        <div class="text-center mb-3">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Detective&clothing=graphicShirt&top=hat&accessories=eyepatch" class="detective-avatar">
+                        </div>
+                        <div class="card border-0 bg-transparent">
+                            <div class="card-body p-0 text-center">
+                                <h5 class="text-uppercase text-decoration-underline">Final Verdict</h5>
+                                <div id="verdict-stamp-container" class="verdict-stamp d-block"></div>
+                                
+                                <p id="confidence-display-area" class="mt-2 fw-bold text-danger" style="font-family: 'Special Elite';">
+                                    CONFIDENCE: <span id="verdict-confidence">0%</span>
+                                </p>
+                                
+                                <p class="case-details small" id="case-description"></p>
+                                <hr class="border-dark border-2 border-dashed">
+                                <h6 class="text-start fw-bold small text-uppercase"><i class="bi bi-bar-chart-fill"></i> Suspect Match</h6>
+                                <div id="suspect-lineup" class="mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 col-md-12">
+                        <div class="forensic-terminal h-100">
+                            <div class="terminal-header d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-terminal-fill"></i> SYSTEM_DIAGNOSTICS</span>
+                                <span class="badge bg-warning text-dark" id="metric-fit">CALCULATING...</span>
+                            </div>
+
+                            <div class="p-3 border border-top-0 border-dark bg-white">
+                                <div class="alert alert-secondary border-dark p-2 mb-3" style="font-size: 0.8rem;">
+                                    <strong>AI HEALTH:</strong> <span id="metric-fit-desc">...</span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <h6 class="text-uppercase fw-bold text-center mb-3" style="font-size: 0.8rem;">
+                                        <i class="bi bi-grid-3x3"></i> Validation Matrix
+                                    </h6>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="matrix-container">
+                                            <div class="matrix-label-y">ACTUAL</div>
+                                            <div>
+                                                <div class="matrix-label-x">PREDICTED</div>
+                                                <div class="matrix-grid">
+                                                    <div class="matrix-cell header"></div><div class="matrix-cell header">C</div><div class="matrix-cell header">D</div><div class="matrix-cell header">U</div><div class="matrix-cell header">?</div>
+                                                    <div class="matrix-cell header">C</div><div class="matrix-cell value" id="cm-0"></div><div class="matrix-cell value" id="cm-1"></div><div class="matrix-cell value" id="cm-2"></div><div class="matrix-cell value" id="cm-3"></div>
+                                                    <div class="matrix-cell header">D</div><div class="matrix-cell value" id="cm-4"></div><div class="matrix-cell value" id="cm-5"></div><div class="matrix-cell value" id="cm-6"></div><div class="matrix-cell value" id="cm-7"></div>
+                                                    <div class="matrix-cell header">U</div><div class="matrix-cell value" id="cm-8"></div><div class="matrix-cell value" id="cm-9"></div><div class="matrix-cell value" id="cm-10"></div><div class="matrix-cell value" id="cm-11"></div>
+                                                    <div class="matrix-cell header">?</div><div class="matrix-cell value" id="cm-12"></div><div class="matrix-cell value" id="cm-13"></div><div class="matrix-cell value" id="cm-14"></div><div class="matrix-cell value" id="cm-15"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="border-dark border-2 border-dashed my-4">
+                                <div>
+                                    <h6 class="text-uppercase fw-bold text-center mb-3" style="font-size: 0.8rem;">
+                                        <i class="bi bi-radar"></i> Performance Radar
+                                    </h6>
+                                    <div style="position: relative; height: 250px; width: 100%;">
+                                        <canvas id="performanceRadar"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4" id="download-area" style="display:none;">
+            <button class="btn btn-outline-light btn-lg" id="downloadBtn">Download Report</button>
+            <button class="btn btn-link text-white" onclick="location.reload()">New Case</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="archiveModal" tabindex="-1" style="z-index: 10000;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-dark" style="border: 3px solid #000; font-family: 'Special Elite';">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title"><i class="bi bi-folder-fill"></i> DEPARTMENT CASE ARCHIVES</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body bg-light">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span><strong>STATUS:</strong> ACCESS GRANTED</span>
+                        <button class="btn btn-sm btn-danger" id="clearLogsBtn">CLEAR HISTORY</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered border-dark table-hover table-sm">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>TIME</th>
+                                    <th>CASE ID</th>
+                                    <th>EVIDENCE FILE</th> 
+                                    <th>VERDICT</th>
+                                    <th>CONFIDENCE</th>
+                                    <th>DB MATCH</th>
+                                </tr>
+                            </thead>
+                            <tbody id="archiveTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // --- 1. MULTI-SONG PLAYLIST LOGIC (WITH SKIP) ---
+            const musicBtn = document.getElementById('musicToggleBtn');
+            const skipBtn = document.getElementById('skipBtn');
+            const audio = document.getElementById('detectiveAudio');
+            
+            // Define your playlist here
+            const playlist = [
+                "{{ url_for('static', filename='audio/song1.mp3') }}",
+                "{{ url_for('static', filename='audio/song2.mp3') }}",
+                "{{ url_for('static', filename='audio/song3.mp3') }}",
+                "{{ url_for('static', filename='audio/song4.mp3') }}",
+                "{{ url_for('static', filename='audio/song5.mp3') }}"
+            ];
+            
+            let currentTrackIndex = 0;
+            let isPlaying = false;
+
+            if(musicBtn && audio) {
+                // Initialize
+                audio.src = playlist[0];
+
+                function playMusic() {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        musicBtn.innerHTML = '<i class="bi bi-volume-up-fill"></i> ON';
+                        musicBtn.classList.remove('btn-outline-secondary');
+                        musicBtn.classList.add('btn-danger'); 
+                    }).catch(e => console.error("Audio play failed:", e));
+                }
+
+                function pauseMusic() {
+                    audio.pause();
+                    isPlaying = false;
+                    musicBtn.innerHTML = '<i class="bi bi-volume-mute-fill"></i> OFF';
+                    musicBtn.classList.remove('btn-danger');
+                    musicBtn.classList.add('btn-outline-secondary');
+                }
+
+                musicBtn.addEventListener('click', () => {
+                    if (!isPlaying) {
+                        playMusic();
+                    } else {
+                        pauseMusic();
+                    }
+                });
+
+                // SKIP Logic
+                if(skipBtn) {
+                    skipBtn.addEventListener('click', () => {
+                        currentTrackIndex++;
+                        if (currentTrackIndex >= playlist.length) currentTrackIndex = 0;
+                        console.log("Skipping to track: " + currentTrackIndex);
+                        audio.src = playlist[currentTrackIndex];
+                        playMusic(); // Always play on skip
+                    });
+                }
+
+                // Auto-Next Logic
+                audio.addEventListener('ended', function() {
+                    currentTrackIndex++;
+                    if (currentTrackIndex >= playlist.length) {
+                        currentTrackIndex = 0; // Loop back to start
+                    }
+                    console.log("Next track index: " + currentTrackIndex);
+                    audio.src = playlist[currentTrackIndex];
+                    if (isPlaying) {
+                        playMusic();
+                    }
+                });
+            }
+
+            // --- 2. ARCHIVE MODAL LOADER ---
+            const modal = document.getElementById('archiveModal');
+            if (modal) {
+                modal.addEventListener('show.bs.modal', function () {
+                    console.log("Fetching History in Detect Page...");
+                    fetch('/history?t=' + new Date().getTime()) 
+                        .then(response => response.json())
+                        .then(data => {
+                            const tbody = document.getElementById('archiveTableBody');
+                            tbody.innerHTML = ''; 
+
+                            if (data.length === 0) {
+                                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">NO RECORDS FOUND</td></tr>';
+                                return;
+                            }
+
+                            data.forEach(log => {
+                                let colorClass = "text-muted";
+                                if (log.verdict === "CALCULUS") colorClass = "text-secondary fw-bold";
+                                if (log.verdict === "ULCER") colorClass = "text-danger fw-bold";
+                                if (log.verdict === "DISCOLORATION") colorClass = "text-warning fw-bold";
+
+                                const row = `
+                                    <tr>
+                                        <td>${log.time}</td>
+                                        <td>${log.id}</td>
+                                        <td class="text-truncate" style="max-width: 150px;">${log.filename || '-'}</td>
+                                        <td class="${colorClass}">${log.verdict}</td>
+                                        <td>${log.confidence}%</td>
+                                        <td>${log.match}</td>
+                                    </tr>
+                                `;
+                                tbody.innerHTML += row;
+                            });
+                        })
+                        .catch(err => console.error("Error loading archives:", err));
+                });
+            }
+        });
+    </script>
+
+    <style>
+        .forensic-terminal { font-family: 'Special Elite', monospace; box-shadow: 5px 5px 0px rgba(0,0,0,0.2); }
+        .terminal-header { background: #2c2c2c; color: white; padding: 8px 15px; font-size: 0.8rem; border: 1px solid black; }
+        .matrix-container { display: flex; align-items: center; }
+        .matrix-label-y { transform: rotate(-90deg); font-weight: bold; font-size: 0.8rem; margin-right: -10px; }
+        .matrix-label-x { text-align: center; font-weight: bold; font-size: 0.8rem; margin-bottom: 5px; }
+        .matrix-grid { display: grid; grid-template-columns: repeat(5, 35px); gap: 1px; }
+        .matrix-cell { width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; border: 1px solid #ddd; }
+        .matrix-cell.header { background: #eee; font-weight: bold; border: none; }
+        .matrix-cell.value { transition: background-color 0.5s ease; color: #000; font-weight: bold; }
+    </style>
+</body>
+</html>

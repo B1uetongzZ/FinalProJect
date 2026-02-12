@@ -1,0 +1,394 @@
+[
+    {
+        "id": "1239-X",
+        "time": "00:33:40",
+        "filename": "(52).jpg",
+        "verdict": "CALCULUS",
+        "confidence": 99.9,
+        "match": "1.00"
+    },
+    {
+        "id": "1303-X",
+        "time": "00:24:50",
+        "filename": "(55).jpg",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "8839-X",
+        "time": "00:24:35",
+        "filename": "(3).jpg",
+        "verdict": "CALCULUS",
+        "confidence": 99.6,
+        "match": "1.00"
+    },
+    {
+        "id": "6260-X",
+        "time": "00:23:18",
+        "filename": "(3).jpg",
+        "verdict": "CALCULUS",
+        "confidence": 99.6,
+        "match": "1.00"
+    },
+    {
+        "id": "5009-X",
+        "time": "23:43:19",
+        "filename": "(55).jpg",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "1328-X",
+        "time": "23:43:03",
+        "filename": "Mouth_Ulcer_0_453.jpeg",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.99"
+    },
+    {
+        "id": "6726-X",
+        "time": "23:39:33",
+        "filename": "Tooth_Discoloration_0_300.jpeg",
+        "verdict": "DISCOLORATION",
+        "confidence": 100.0,
+        "match": "0.99"
+    },
+    {
+        "id": "3971-X",
+        "time": "23:26:47",
+        "verdict": "DISCOLORATION",
+        "confidence": 100.0,
+        "match": "0.99"
+    },
+    {
+        "id": "9667-X",
+        "time": "23:21:24",
+        "verdict": "DISCOLORATION",
+        "confidence": 100.0,
+        "match": "0.99"
+    },
+    {
+        "id": "LOG-001",
+        "time": "22:51:19",
+        "verdict": "DISCOLORATION",
+        "confidence": 99.78345036506653,
+        "match": "0.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "22:49:43",
+        "verdict": "DISCOLORATION",
+        "confidence": 99.98051524162292,
+        "match": "0.84"
+    },
+    {
+        "id": "LOG-001",
+        "time": "22:48:58",
+        "verdict": "DISCOLORATION",
+        "confidence": 99.9017596244812,
+        "match": "0.83"
+    },
+    {
+        "id": "LOG-001",
+        "time": "22:46:11",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.52"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:32:50",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.52"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:31:40",
+        "verdict": "UNKNOWN",
+        "confidence": 99.9895453453064,
+        "match": "0.35"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:31:11",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.52"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:27:14",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.52"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:23:55",
+        "verdict": "UNKNOWN",
+        "confidence": 99.9895453453064,
+        "match": "0.35"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:22:08",
+        "verdict": "UNKNOWN",
+        "confidence": 99.9895453453064,
+        "match": "0.35"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:21:36",
+        "verdict": "DISCOLORATION",
+        "confidence": 99.99982118606567,
+        "match": "0.52"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:19:53",
+        "verdict": "DISCOLORATION",
+        "confidence": 99.99979734420776,
+        "match": "0.78"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:17:40",
+        "verdict": "CALCULUS",
+        "confidence": 99.6,
+        "match": "1.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:16:15",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:14:02",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:13:15",
+        "verdict": "CALCULUS",
+        "confidence": 99.6,
+        "match": "1.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:12:22",
+        "verdict": "CALCULUS",
+        "confidence": 99.9,
+        "match": "1.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:10:52",
+        "verdict": "CALCULUS",
+        "confidence": 99.6,
+        "match": "1.00"
+    },
+    {
+        "id": "LOG-001",
+        "time": "13:09:04",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "3700-X",
+        "time": "13:06:17",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "TEST-MODE",
+        "time": "13:04:44",
+        "verdict": "CALCULUS",
+        "confidence": 99.6,
+        "match": "0.00"
+    },
+    {
+        "id": "8303-X",
+        "time": "13:02:11",
+        "verdict": "CALCULUS",
+        "confidence": 99.8,
+        "match": "1.00"
+    },
+    {
+        "id": "9061-X",
+        "time": "13:01:50",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "8049-X",
+        "time": "13:00:13",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "4581-X",
+        "time": "12:58:30",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "8561-X",
+        "time": "12:57:40",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "8128-X",
+        "time": "12:56:14",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "1975-X",
+        "time": "12:55:53",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "9432-X",
+        "time": "12:55:36",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.99"
+    },
+    {
+        "id": "3892-X",
+        "time": "12:55:26",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "3201-X",
+        "time": "12:48:52",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "0.55"
+    },
+    {
+        "id": "1823-X",
+        "time": "12:48:15",
+        "verdict": "UNKNOWN",
+        "confidence": 100.0,
+        "match": "0.35"
+    },
+    {
+        "id": "9297-X",
+        "time": "11:26:14",
+        "verdict": "UNKNOWN",
+        "confidence": 50.5,
+        "match": "0.23"
+    },
+    {
+        "id": "8952-X",
+        "time": "11:23:45",
+        "verdict": "UNKNOWN",
+        "confidence": 100.0,
+        "match": "0.35"
+    },
+    {
+        "id": "7130-X",
+        "time": "11:23:18",
+        "verdict": "ULCER",
+        "confidence": 98.6,
+        "match": "0.64"
+    },
+    {
+        "id": "9998-X",
+        "time": "11:22:56",
+        "verdict": "UNKNOWN",
+        "confidence": 100.0,
+        "match": "0.42"
+    },
+    {
+        "id": "4955-X",
+        "time": "11:18:35",
+        "verdict": "ULCER",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "2608-X",
+        "time": "11:16:12",
+        "verdict": "UNKNOWN",
+        "confidence": 100.0,
+        "match": "0.29"
+    },
+    {
+        "id": "7559-X",
+        "time": "11:15:52",
+        "verdict": "UNKNOWN",
+        "confidence": 100.0,
+        "match": "0.35"
+    },
+    {
+        "id": "6712-X",
+        "time": "11:15:42",
+        "verdict": "UNKNOWN",
+        "confidence": 50.5,
+        "match": "0.23"
+    },
+    {
+        "id": "1826-X",
+        "time": "11:13:32",
+        "verdict": "CALCULUS",
+        "confidence": 99.8,
+        "match": "1.00"
+    },
+    {
+        "id": "3423-X",
+        "time": "11:10:12",
+        "verdict": "UNKNOWN",
+        "confidence": 50.5,
+        "match": "0.23"
+    },
+    {
+        "id": "9406-X",
+        "time": "11:09:12",
+        "verdict": "CALCULUS",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "7932-X",
+        "time": "11:08:50",
+        "verdict": "DISCOLORATION",
+        "confidence": 100.0,
+        "match": "0.52"
+    },
+    {
+        "id": "5845-X",
+        "time": "11:00:35",
+        "verdict": "DISCOLORATION",
+        "confidence": 100.0,
+        "match": "1.00"
+    },
+    {
+        "id": "9969-X",
+        "time": "10:59:24",
+        "verdict": "DISCOLORATION",
+        "confidence": 100.0,
+        "match": "0.99"
+    }
+]
