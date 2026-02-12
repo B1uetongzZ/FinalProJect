@@ -22,8 +22,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # 🔴 PATH TO VALIDATION DATASET (THE REFERENCE MEMORY)
 # ==========================================================
 import os
-# This works on both Windows and Linux
-VAL_FOLDER = os.path.join("dataset_split", "val")
+VAL_FOLDER = "dataset_split/val"
 
 # --- SAFETY SETTINGS ---
 USE_SAFETY_FILTER = True  
