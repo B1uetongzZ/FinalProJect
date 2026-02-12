@@ -381,5 +381,7 @@ def generate_heatmap_b64(image_pil, cam_data):
     _, buffer = cv2.imencode('.jpg', result)
     return base64.b64encode(buffer).decode('utf-8')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    # This line allows Koyeb to tell your app which port to use
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
